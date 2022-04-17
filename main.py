@@ -48,22 +48,22 @@ smtp_server = "smtp.gmail.com"                          # address of the smtp se
 
 
 def main():
-    # # scrape
-    # scrape(url, html_file_path)
-    #
-    # # Extract
-    # extract(html_file_path, extracted_data_file_path)
+    # scrape
+    scrape(url, html_file_path)
+
+    # Extract
+    extract(html_file_path, extracted_data_file_path)
 
     # analyse
     df = analyse(extracted_data_file_path, price_requirements)
 
     df.to_csv(matching_data_file_path, sep='\t')
 
-    # # email
-    # with open(matching_data_file_path, 'r') as file:
-    #     message = file.read()
-    # message = message.replace('\n', '\n\n')  # extra line whitespace for readability
-    # email('gpu Alert', message, email_receive, email_send, smtp_server)
+    # email
+    with open(matching_data_file_path, 'r') as file:
+        message = file.read()
+    message = message.replace('\n', '\n\n')  # extra line whitespace for readability
+    email('gpu Alert', message, email_receive, email_send, smtp_server)
 
 
 if __name__ == "__main__":
