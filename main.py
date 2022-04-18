@@ -25,7 +25,7 @@ from mailer import email
 # Scrape
 url = 'https://www.2dehands.be/l/computers-en-software/videokaarten/#Language:nl-BE|sortBy:SORT_INDEX|sortOrder:' \
           'DECREASING'                                  # url of the website that will be scraped
-html_file_path = 'data/html_saved/scraped_page.txt'     # path of the file where the scraped html will be saved
+html_file_path = 'data/scraped_page.txt'                # path of the file where the scraped html will be saved
 
 # Extract
 extracted_data_file_path = 'data/extracted_data.csv'    # path of the file where the extracted data will be saved
@@ -44,7 +44,7 @@ email_send = "michel.2dehandsscript@gmail.com "         # Email address that wil
 email_receive = "michel.matthe@live.co.uk"              # Email address that will receive the email
 smtp_server = "smtp.gmail.com"                          # address of the smtp server of the sender email
 
-# ###########################################  ################################################################
+# ########################################### Program ##################################################################
 
 
 def main():

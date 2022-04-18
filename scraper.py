@@ -19,3 +19,4 @@ def scrape(url, path):
     resp = session.get(url)
     resp.html.render(sleep=1)
     save_html(resp.html.html, file_path)
+    session.close()

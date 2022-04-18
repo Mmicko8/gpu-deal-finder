@@ -31,6 +31,7 @@ def find_price(listing, link):
         resp = session.get(link)
         resp.html.render(sleep=1)
         zoup = bSoup(resp.html.html, 'html.parser')
+        session.close()
         bid = zoup.select_one('.bid')
         if bid is None:
             min_bid = zoup.select_one('#vip-bidding-form-min-bid')
@@ -42,6 +43,9 @@ def find_price(listing, link):
 
     else:
         return price[2:]
+
+
+# def find_date(listing, link)
 
 
 def extract(html_file_path, csv_file_path):
@@ -65,7 +69,6 @@ def extract(html_file_path, csv_file_path):
             link = 'https://www.2dehands.be' + listing.select_one('a')['href']
 
             price = find_price(listing, link)
-            # price = listing.select_one('.mp-Listing-price').text[2:]
 
             data.append({'title': title, 'date': date, 'price': price, 'seller_name': seller_name,
                          'seller_location': seller_location, 'link': link})
