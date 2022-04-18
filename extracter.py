@@ -37,21 +37,17 @@ def find_price(listing, link):
             return bid
         return bid.text[2:]
 
-        # deprecated because site changed:
-        # bid = zoup.select_one('.bid')
-        # if bid is None:
-        #     min_bid = zoup.select_one('#vip-bidding-form-min-bid')
-        #     if min_bid is None:
-        #         return None
-        #     return min_bid.text[2:]  # [2:] to remove euro sign
-        # else:
-        #     return bid.select_one('.bid-amount').text[2:]
-
     else:
         return price[2:]
 
 
-# def find_date(listing, link):
+# def find_date(link):
+#     session = HTMLSession()
+#     resp = session.get(link)
+#     resp.html.render(sleep=0.2)
+#     soup = bSoup(resp.html.html, 'html.parser')
+#     date = soup.select_one('.Stats-stat:last-of-type .Stats-summary')
+#     print(date.text)
 
 
 def extract(html_file_path, csv_file_path):
@@ -69,15 +65,15 @@ def extract(html_file_path, csv_file_path):
         if listing.name == 'li':
             title = listing.select_one('.mp-Listing-title').text.lower()
             # description = listing.select_one('.mp-Listing-description').text
-            date = listing.select_one('.mp-Listing-date').text
+            # date = listing.select_one('.mp-Listing-date').text
             seller_name = listing.select_one('.mp-Listing-seller-name').text
             seller_location = listing.select_one('.mp-Listing-location').text
             link = 'https://www.2dehands.be' + listing.select_one('a')['href']
 
             price = find_price(listing, link)
 
-            data.append({'title': title, 'date': date, 'price': price, 'seller_name': seller_name,
-                         'seller_location': seller_location, 'link': link})
+            data.append({'title': title, 'price': price, 'seller_name': seller_name, 'seller_location': seller_location,
+                         'link': link})
 
     df = pd.DataFrame(data, )
     df.dropna(inplace=True, subset=['price'])
