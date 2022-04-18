@@ -63,7 +63,8 @@ def main():
     with open(matching_data_file_path, 'r') as file:
         message = file.read()
     message = message.replace('\n', '\n\n')  # extra line whitespace for readability
-    email('gpu Alert', message, email_receive, email_send, smtp_server)
+    print(message)
+    # email('gpu Alert', message, email_receive, email_send, smtp_server)
 
 
 if __name__ == "__main__":

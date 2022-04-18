@@ -30,22 +30,28 @@ def find_price(listing, link):
         session = HTMLSession()
         resp = session.get(link)
         resp.html.render(sleep=1)
-        zoup = bSoup(resp.html.html, 'html.parser')
-        session.close()
-        bid = zoup.select_one('.bid')
+        soup = bSoup(resp.html.html, 'html.parser')
+
+        bid = soup.select_one('.BiddingList-price')
         if bid is None:
-            min_bid = zoup.select_one('#vip-bidding-form-min-bid')
-            if min_bid is None:
-                return None
-            return min_bid.text[2:]  # [2:] to remove euro sign
-        else:
-            return bid.select_one('.bid-amount').text[2:]
+            return bid
+        return bid.text[2:]
+
+        # deprecated because site changed:
+        # bid = zoup.select_one('.bid')
+        # if bid is None:
+        #     min_bid = zoup.select_one('#vip-bidding-form-min-bid')
+        #     if min_bid is None:
+        #         return None
+        #     return min_bid.text[2:]  # [2:] to remove euro sign
+        # else:
+        #     return bid.select_one('.bid-amount').text[2:]
 
     else:
         return price[2:]
 
 
-# def find_date(listing, link)
+# def find_date(listing, link):
 
 
 def extract(html_file_path, csv_file_path):
